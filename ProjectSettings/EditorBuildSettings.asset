@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 98ab6a3a3b6ef8745be011cd7fc7b5a3
+  - enabled: 1
+    path: Assets/Scenes/Endless Game/World_Western.unity
+    guid: b8c3cb1b12b561440b350909acb63dae
+  - enabled: 1
+    path: Assets/Scenes/Endless Game/World_Vineyard.unity
+    guid: 77bb95fbdb9288248ad827aeba34858f
+  - enabled: 1
+    path: Assets/Scenes/Endless Game/World_Medieval.unity
+    guid: c7aacd5fe163e0346ad02937fc72e1c5
+  - enabled: 1
+    path: Assets/Scenes/Endless Game/World_Ice.unity
+    guid: f11e9d2ead5b2ee4db2ff0c60456b989
+  - enabled: 1
+    path: Assets/Scenes/Endless Game/World_Skull_Island.unity
+    guid: ba44812c6819181499c92b3d1f8a5b67
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a96f875b4c6260f478ad11372877501a,
+      type: 2}

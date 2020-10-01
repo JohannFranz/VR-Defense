@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Goal
+  - Minion
+  - Weapon
+  - Merc
+  - Placement
+  - AgentFactory
+  - Hand
+  - Deck
+  - DeckManager
+  - Placeholder
+  - HealthController
+  - Sensor
+  - Floor
+  - StateMachine
+  - Team
+  - Renderer
+  - Formation
+  - AI
+  - Steering
+  - FirePosition
+  - FxTemporaire
+  - Fire
+  - LifeText
+  - DamageText
+  - RangeText
+  - NameText
+  - WaveLevelText
+  - CurrentLivesText
+  - StartButton
+  - Undefined
+  - StartButtonText
+  - Canvas
+  - PlacementArea
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

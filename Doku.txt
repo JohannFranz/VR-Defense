@@ -1,0 +1,11 @@
+- Eine Wave enthält allgemeine Informationen wie das Spawnintervall, die einzelnen Monstertypen und ihr Leben.
+- Ein SpawnController ist für die Steuerung der Wave zuständig. Er startet jede Wave und legt die Start- und Zielposition fest.
+- Für jeden Spielmodus gibt es einen entsprechenende GameController.
+
+- Teams werden auf Bedarf gebildet. Der erste Agent in einer Gruppe, der ins Kampfgeschehen übergeht wird zum Gruppenleiter deklariert. Jeder weitere Agent ordnet sich unter. Mittels einem Team-GameObject in jedem Agent wird über einen Sphere-Collider jeder alliierte Agent in der Nähe erkannt. 
+
+- Eine StateMachine erbt von MonoBehaviour. Jeder Agent hat ein Kindobjekt mit einem StateMachine Skript. Damit StateMachines modular mit States in Unity zusammengebaut werden können, sind States, Transitions und Conditions als Scriptable Objects implementiert. Einer StateMachine werden lediglich die Transition-Objekte übergeben. Innerhalb des Transition-Objektes befindet sich ein "PreviousState"-Objekt, ein "NextState"-Objekt und ein "Condition"-Objekt. 
+
+- Zwar können Scriptable Objects auch als Datenspeicher verwendet werden, sie werden aber per Refernz in Unity an alle Agenten übergeben. Damit ist es nicht möglich innerhalb eines State-ScriptableObjects Agentenspezifische Daten zu speichern. Folglich werden diese Daten im AgentController gehalten.
+
+- Die Factory wird einmalig im Mainmenu erstellt und in jede Szene übergeben. So muss lediglich in einer Szene jedes Agentenprefab im Factory-Objekt zugewiesen werden.
