@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5954517200560067510}
   - component: {fileID: 1446258073683251466}
   - component: {fileID: 7161810367124654278}
+  - component: {fileID: -2094082182564621978}
   m_Layer: 0
   m_Name: AgentPlacement
   m_TagString: Placement
@@ -107,3 +108,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-2094082182564621978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5954517200560067508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6e04dc8dfed2b488fc535f6e780be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inVRMode: 0
+  selected: 0

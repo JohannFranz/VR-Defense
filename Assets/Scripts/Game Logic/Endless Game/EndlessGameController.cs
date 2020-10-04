@@ -23,9 +23,7 @@ public class EndlessGameController : MonoBehaviour
     private bool pausedGame;
 
     private GameObject[] placementAreas;
-
     private bool firstStart;
-
 
     void Awake()
     {
@@ -107,7 +105,6 @@ public class EndlessGameController : MonoBehaviour
 
     public void WaveFinishedCallback()
     {
-        Debug.Log("Callback called in Endgame");
         if (HasGameEnded())
         {
             SuccessfulEnd();
@@ -154,7 +151,6 @@ public class EndlessGameController : MonoBehaviour
 
     public void PrepareNextWave()
     {
-        Debug.Log("Prepare Next wave");
         UpdateWaveText();
 
         EnablePreparationView(true);
@@ -162,7 +158,6 @@ public class EndlessGameController : MonoBehaviour
         {
             pl.SetActive(true);
         }
-
 
         Card.Deck deck = deckManager.GetComponent<Card.Deck>();
         if (deck.IsHandFullWithCards())

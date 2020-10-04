@@ -17,8 +17,20 @@ namespace Card
         private GameObject hand;
         private GameObject handPlaceholder;
 
+        private bool inVRMode;
+
         void Start()
         {
+            VR_Controller vrCon = GameObject.Find(Constants.VR_Tag).GetComponent<VR_Controller>();
+            if (vrCon.IsVRMode())
+            {
+                //enabled = false;
+                inVRMode = true;
+                return;
+            }
+
+            inVRMode = false;
+
             canGroup = GetComponent<CanvasGroup>();
 
             cardSize = GameObject.FindGameObjectWithTag(Constants.DeckManager).GetComponent<Deck>().GetCardSize();
@@ -27,6 +39,9 @@ namespace Card
 
         public void OnPointerDown()
         {
+            if (inVRMode)
+                return;
+
             if (transform.parent.tag != Constants.HandTag)
             {
                 Debug.LogError("card not in Hand.");
@@ -42,12 +57,18 @@ namespace Card
 
         public void OnPointerUp()
         {
+            if (inVRMode)
+                return;
+
             canGroup.alpha = 1.0f;
             lastMousePosition = Constants.NullVector3;
         }
 
         public void OnDrag()
         {
+            if (inVRMode)
+                return;
+
             if (lastMousePosition == Constants.NullVector3)
             {
                 Debug.LogError("lastMousePosition is set to NullVector3.");

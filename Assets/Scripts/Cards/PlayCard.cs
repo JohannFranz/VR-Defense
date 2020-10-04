@@ -18,8 +18,19 @@ namespace Card
         private CanvasGroup canGroup;
         private GameObject hand;
 
+        //private VR_Controller vrcon;
+        private bool inVRMode;
+
         void Start()
         {
+            VR_Controller vrCon = GameObject.Find(Constants.VR_Tag).GetComponent<VR_Controller>();
+            if (vrCon.IsVRMode())
+            {
+                //enabled = false;
+                inVRMode = true;
+                return;
+            }
+
             dragScript = GetComponent<DragCard>();
 
             //Instantiate agent belonging to card
@@ -29,13 +40,26 @@ namespace Card
             mercenary.GetComponent<AgentController>().weapon.SetDamage(cardData.Damage);
             mercenary.SetActive(false);
 
-            cam = GameObject.FindWithTag(Constants.CameraTag).GetComponent<Camera>();
             canGroup = GetComponent<CanvasGroup>();
             hand = GameObject.FindGameObjectWithTag(Constants.HandTag);
+
+            //GameObject vrconGO = GameObject.Find(Constants.VR_Tag);
+
+            //if (vrconGO == null)
+            //    cam = GameObject.FindWithTag(Constants.CameraTag).GetComponent<Camera>();
+            //else
+            //{
+            //    vrcon = vrconGO.GetComponent<VR_Controller>();
+            //    if (vrcon.IsVRMode() == false)
+                    cam = GameObject.FindWithTag(Constants.CameraTag).GetComponent<Camera>();
+            //}
         }
 
         public void OnPointerDown()
         {
+            if (inVRMode)
+                return;
+
             currentMousePosition = Input.mousePosition;
 
             mercenary.transform.position = GetPositionForAgent();
@@ -44,6 +68,9 @@ namespace Card
 
         public void OnPointerUp()
         {
+            if (inVRMode)
+                return;
+
             if (WasValidPlacementAreaSelected())
             {
                 mercenary.transform.position = placementArea.transform.position;
@@ -60,6 +87,9 @@ namespace Card
 
         public void OnDrag()
         {
+            if (inVRMode)
+                return;
+
             currentMousePosition = Input.mousePosition;
             mercenary.transform.position = GetPositionForAgent();
             ProcessMercenaryVisualEffects();
@@ -68,10 +98,17 @@ namespace Card
         private Vector3 GetPositionForAgent()
         {
             RaycastHit hit;
-            Ray camRay = cam.ScreenPointToRay(currentMousePosition);
-            bool wasHit = Physics.Raycast(camRay.origin, camRay.direction, out hit, 100, Physics.DefaultRaycastLayers);
-            //Debug.DrawRay(camRay.origin, camRay.direction * 1000);
-
+            Ray ray;
+            //if (vrcon.IsVRMode())
+            //{
+            //    ray = vrcon.GetPointerRay();
+            //}
+            //else
+            //{
+                ray = cam.ScreenPointToRay(currentMousePosition);
+            //}
+            bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100, Physics.DefaultRaycastLayers);
+            Debug.DrawRay(ray.origin, ray.direction * 1000);
 
             return hit.point;
         }
@@ -95,8 +132,16 @@ namespace Card
         private bool WasValidPlacementAreaSelected()
         {
             RaycastHit hit;
-            Ray camRay = cam.ScreenPointToRay(currentMousePosition);
-            bool wasHit = Physics.Raycast(camRay.origin, camRay.direction, out hit, 100, Physics.DefaultRaycastLayers);
+            Ray ray;
+            //if (vrcon.IsVRMode())
+            //{
+            //    ray = vrcon.GetPointerRay();
+            //}
+            //else
+            //{
+                ray = cam.ScreenPointToRay(currentMousePosition);
+            //}
+            bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100, Physics.DefaultRaycastLayers);
 
             if (wasHit == false)
                 return false;

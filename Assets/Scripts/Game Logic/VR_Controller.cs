@@ -1,78 +1,102 @@
 ﻿using UnityEngine;
-using Valve.VR;
 using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 
 public class VR_Controller : MonoBehaviour
 {
-    //public XRLoader WMRLoader;
-    //public XRLoader MockLoader;
+    static VR_Controller vrInstance;
 
-    //void Awake()
-    //{
-    //    XRGeneralSettings.Instance.Manager.loaders.Clear();
-
-    //    //Initialize WMR.
-    //    XRGeneralSettings.Instance.Manager.loaders.Add(WMRLoader);
-    //    XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
-    //    XRGeneralSettings.Instance.Manager.StartSubsystems();
-
-    //    //Check if initialization was successfull.
-    //    var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
-    //    SubsystemManager.GetInstances(xrDisplaySubsystems);
-    //    bool success = xrDisplaySubsystems[0].running;
-
-    //    if (!success)
-    //    {
-    //        Debug.Log("success");
-    //        //Initialization was not successfull, load mock instead.
-    //        print("loading mock");
-
-    //        //Deinitialize WMR
-    //        XRGeneralSettings.Instance.Manager.loaders.Clear();
-    //        XRGeneralSettings.Instance.Manager.StopSubsystems();
-    //        XRGeneralSettings.Instance.Manager.DeinitializeLoader();
-
-    //        //Initialize mock.
-    //        XRGeneralSettings.Instance.Manager.loaders.Add(MockLoader);
-    //        XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
-    //        XRGeneralSettings.Instance.Manager.StartSubsystems();
-    //    } else
-    //    {
-    //        Debug.Log("fail");
-    //    }
-    //}
+    private bool vrModeActive;
+    private GameObject vrPointer;
 
     void Awake()
     {
-        
-        Debug.Log("Device is present in Awake: " + XRDevice.isPresent);
-    }
-
-    void Start()
-    {
-        Debug.Log("Device is present in Start: " + XRDevice.isPresent);
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        for (int i = 0; i < SteamVR.connected.Length; i++)
+        if (vrInstance != null)
         {
-            if (SteamVR.connected[i])
-                Debug.Log("Connected in " + i);
+            Destroy(gameObject);
+            return;
         }
 
-        Debug.Log("Device is present in Update: " + XRDevice.isPresent);
+        vrInstance = this;
+        DontDestroyOnLoad(gameObject);
+
+        if (XRDevice.isPresent)
+            vrModeActive = true;
+        else
+            vrModeActive = false;
+
+        vrPointer = GameObject.Find(Constants.VR_PointerTag);
     }
 
-    private void SwitchToVRMode()
+    private void SetMainMenuVRMode()
     {
         Camera.main.gameObject.SetActive(false);
 
+        GameObject canvas = GameObject.Find(Constants.CanvasTag);
+        Canvas can = canvas.GetComponent<Canvas>();
+        can.renderMode = RenderMode.WorldSpace;
+        can.worldCamera = GameObject.Find(Constants.VR_PointerTag).GetComponent<Camera>();
+
+        RectTransform rec = canvas.GetComponent<RectTransform>();
+        rec.position = Constants.VR_CanvasMainMenuPosition;
+        rec.transform.localScale = Constants.VR_CanvasScale;
+    }
+
+    private void SetMainMenuStandardMode()
+    {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.SetActive(true);
+            transform.GetChild(i).gameObject.SetActive(false);
         }
+        GameObject.Find("Plane").SetActive(false);
+    }
+
+    private void SetWorldVRMode()
+    {
+        Camera.main.gameObject.SetActive(false);
+
+        GameObject canvas = GameObject.Find(Constants.CanvasTag);
+        Canvas can = canvas.GetComponent<Canvas>();
+        can.renderMode = RenderMode.WorldSpace;
+        can.worldCamera = vrPointer.GetComponent<Camera>();
+
+        RectTransform rec = canvas.GetComponent<RectTransform>();
+        rec.position = Constants.VR_CanvasGamePosition;
+        rec.Rotate(Constants.VR_CanvasGameRotation);
+        rec.transform.localScale = Constants.VR_CanvasScale;
+    }
+
+    private void SetWorldStandardMode()
+    {
+
+    }
+
+    public void ProcessSceneLoad()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == Constants.Main_Menu)
+        {
+            if (vrModeActive)
+                SetMainMenuVRMode();
+            else
+                SetMainMenuStandardMode();
+        }
+        else
+        {
+            if (vrModeActive)
+                SetWorldVRMode();
+            else
+                SetWorldStandardMode();
+        }
+    }
+
+    public Ray GetPointerRay()
+    {
+        return vrPointer.GetComponent<Pointer>().GetPointerRay();
+    }
+
+    public bool IsVRMode()
+    {
+        return vrModeActive;
     }
 }

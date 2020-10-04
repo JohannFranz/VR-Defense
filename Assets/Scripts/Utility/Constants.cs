@@ -36,6 +36,8 @@ public static class Constants
     public const string StartButtonTag = "StartButton";
     public const string StartButtonTextTag = "StartButtonText";
     public const string CanvasTag = "Canvas";
+    public const string VR_Tag = "VR";
+    public const string VR_PointerTag = "VR_Pointer";
 
     public const string HealthController = "HealthController";
     public const string DeckManager = "DeckManager";
@@ -50,11 +52,17 @@ public static class Constants
     public const string World_Ice = "World_Ice";
     public const string World_Skull_Island = "World_Skull_Island";
 
-
-
     public static readonly Vector3 RotationAroundYAxis = new Vector3(0, 1, 0);
     public static readonly Vector3 Origin = Vector3.zero;
     public static readonly Vector3 NullVector3 = new Vector3(-9999, -9999, -9999);
+    public static readonly Vector3 VR_CanvasScale = new Vector3(0.01f, 0.01f, 0.01f);
+    public static readonly Vector3 VR_CanvasMainMenuPosition = new Vector3(0, 2, 2);
+    public static readonly Vector3 VR_CanvasGamePosition = new Vector3(0, 4, 10);
+    public static readonly Vector3 VR_CanvasGameRotation = new Vector3(0, 0, 0);
+    public static readonly float VR_PointerLength = 100.0f;
+
+    public static readonly Color VR_PlacementUnselectedColor = new Color32(45, 66, 166, 255);
+    public static readonly Color VR_PlacementSelectedColor = new Color32(255, 0, 0, 255);
 
     public const float TargetChooseDotValue = 0.8f;
     public const float AttackRangeOffset = 0.9f;

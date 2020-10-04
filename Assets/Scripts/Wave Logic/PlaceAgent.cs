@@ -8,12 +8,11 @@ public class PlaceAgent : MonoBehaviour
 
     private Camera cam;
     private RaycastHit hitAgent;
+    private VR_Controller vrcon;
 
     //stores current mouse position
     private Vector3 currentPosition;
-
     private Vector3 zeroXRotation;
-
     private Transform selectedAgent;
     private Vector3 initialPosition;
 
@@ -21,10 +20,19 @@ public class PlaceAgent : MonoBehaviour
     void Start()
     {
         hitAgent = new RaycastHit();
-        cam = gameObject.GetComponent<Camera>();
         initialPosition = Constants.NullVector3;
-
         zeroXRotation = new Vector3(0, 0, 0);
+
+        GameObject vrconGO = GameObject.Find(Constants.VR_Tag);
+
+        if (vrconGO == null)
+            cam = gameObject.GetComponent<Camera>();
+        else
+        {
+            vrcon = vrconGO.GetComponent<VR_Controller>();
+            if (vrcon.IsVRMode() == false)
+                cam = gameObject.GetComponent<Camera>();
+        }
     }
 
     // Update is called once per frame
@@ -65,12 +73,21 @@ public class PlaceAgent : MonoBehaviour
 
     private bool IsAgentHit()
     {
-        bool wasHit = Physics.Raycast(cam.ScreenPointToRay(currentPosition).origin,
-                                 cam.ScreenPointToRay(currentPosition).direction, out hitAgent, 100,
-                                 Physics.DefaultRaycastLayers);
-        if (wasHit == false) return false;
+        Ray ray;
+        if (vrcon.IsVRMode())
+        {
+            ray = vrcon.GetPointerRay();
+        }
+        else
+        {
+            ray = cam.ScreenPointToRay(currentPosition);
+        }
+        bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hitAgent, 100, Physics.DefaultRaycastLayers);
+        if (wasHit == false)
+            return false;
 
-        if (hitAgent.rigidbody == null) return false;
+        if (hitAgent.rigidbody == null)
+            return false;
 
         return true;
     }
@@ -85,7 +102,15 @@ public class PlaceAgent : MonoBehaviour
     private void MoveAgent()
     {
         RaycastHit hit;
-        Ray ray = cam.ScreenPointToRay(currentPosition);
+        Ray ray;
+        if (vrcon.IsVRMode())
+        {
+            ray = vrcon.GetPointerRay();
+        }
+        else
+        {
+            ray = cam.ScreenPointToRay(currentPosition);
+        }
         bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 1000/*, Physics.DefaultRaycastLayers*/);
 
 
@@ -101,7 +126,15 @@ public class PlaceAgent : MonoBehaviour
     private void Place()
     {
         RaycastHit hit;
-        Ray ray = cam.ScreenPointToRay(currentPosition);
+        Ray ray;
+        if (vrcon.IsVRMode())
+        {
+            ray = vrcon.GetPointerRay();
+        }
+        else
+        {
+            ray = cam.ScreenPointToRay(currentPosition);
+        }
         bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100/*, Physics.DefaultRaycastLayers*/);
         //Debug.DrawRay(ray.origin, ray.direction * (hit.point - ray.origin).magnitude);
 
