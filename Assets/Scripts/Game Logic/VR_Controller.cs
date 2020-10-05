@@ -28,6 +28,7 @@ public class VR_Controller : MonoBehaviour
         vrPointer = GameObject.Find(Constants.VR_PointerTag);
     }
 
+
     private void SetMainMenuVRMode()
     {
         Camera.main.gameObject.SetActive(false);

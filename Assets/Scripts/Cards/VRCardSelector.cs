@@ -63,5 +63,15 @@ namespace Card
                 selector.selectionBackground.SetActive(false);
             }
         }
+
+        public bool IsSelected()
+        {
+            return selected;
+        }
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
+        }
     }
 }

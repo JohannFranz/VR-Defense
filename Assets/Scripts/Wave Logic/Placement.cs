@@ -22,11 +22,11 @@ public class Placement : MonoBehaviour
         placementRenderer.material.color = unplacedColor;
     }
 
-    void Update()
-    {
-        if (placedMercenary == null || placedMercenary.activeSelf == false)
-            isAlreadyOccupied = false;
-    }
+    //void Update()
+    //{
+    //    if (placedMercenary == null || placedMercenary.activeSelf == false)
+    //        isAlreadyOccupied = false;
+    //}
 
     public bool IsAlreadyOccupied()
     {

@@ -13,6 +13,7 @@ public static class Constants
     public const string PlacementAreaTag = "PlacementArea";
     public const string FactoryTag = "AgentFactory";
     public const string CameraTag = "MainCamera";
+    public const string CardTag = "Card";
     public const string HandTag = "Hand";
     public const string DeckTag = "Deck";
     public const string DeckManagerTag = "DeckManager";

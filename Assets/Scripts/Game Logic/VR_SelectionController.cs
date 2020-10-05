@@ -1,34 +1,90 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class VR_SelectionController : MonoBehaviour
 {
+    [SerializeField]
+    private bool inVRMode;
+
     private VR_Controller vrCon;
+
+    private List<VRPlacementSelector> placements;
+    private List<Card.VRCardSelector> cards;
 
     // Start is called before the first frame update
     void Start()
     {
-        vrCon = GetComponent<VR_Controller>();
+        placements = new List<VRPlacementSelector>();
+        cards = new List<Card.VRCardSelector>();
+        vrCon = GameObject.Find(Constants.VR_Tag).GetComponent<VR_Controller>();
+        inVRMode = vrCon.IsVRMode();
 
+        FindPlacements();
+        FindCards();
     }
 
     // Update is called once per frame
     void Update()
     {
-        RaycastHit hit;
-        Ray ray = vrCon.GetPointerRay();
-        if (Physics.Raycast(ray, out hit, 100.0f) == false)
+        VRPlacementSelector selectedPlacement = GetSelectedPlacement();
+        Card.VRCardSelector selectedCard = GetSelectedCard();
+
+        if (selectedCard == null || selectedPlacement == null)
             return;
 
-        GameObject target = hit.rigidbody.gameObject;
+        GameObject mercenary = selectedCard.GetComponent<Card.PlayCard>().GetMercenary();
+        mercenary.SetActive(true);
+        mercenary.transform.position = selectedPlacement.transform.position;
 
-        if (target.tag != Constants.PlacementTag)
-            return;
-
-        if (target.GetComponent<Placement>().IsAlreadyOccupied())
-            return;
-
-
+        selectedPlacement.PlaceMerc(mercenary);
+        selectedCard.Destroy();
     }
+
+    private void FindPlacements()
+    {
+        GameObject[] placementAreas = GameObject.FindGameObjectsWithTag(Constants.PlacementAreaTag);
+
+        for (int i = 0; i < placementAreas.Length; i++)
+        {
+            for (int j = 0; j < placementAreas[i].transform.childCount; j++)
+            {
+                GameObject area = placementAreas[i].transform.GetChild(j).gameObject;
+                placements.Add(area.GetComponent<VRPlacementSelector>());
+            }
+        }
+    }
+
+    private void FindCards()
+    {
+        GameObject deck = GameObject.FindGameObjectWithTag(Constants.DeckTag);
+
+        for (int i = 0; i < deck.transform.childCount; i++)
+        {
+            GameObject card = deck.transform.GetChild(i).gameObject;
+            cards.Add(card.GetComponent<Card.VRCardSelector>());
+        }
+    }
+
+    public VRPlacementSelector GetSelectedPlacement()
+    {
+        for (int i = 0; i < placements.Count; i++)
+        {
+            if (placements[i].IsSelected())
+                return placements[i];
+        }
+
+        return null;
+    }
+
+    public Card.VRCardSelector GetSelectedCard()
+    {
+        for (int j = 0; j < cards.Count; j++)
+        {
+            if (cards[j].IsSelected())
+                return cards[j];
+        }
+
+        return null;
+    }
+    
 }

@@ -23,36 +23,29 @@ namespace Card
 
         void Start()
         {
+            InitMercenary();
+
             VR_Controller vrCon = GameObject.Find(Constants.VR_Tag).GetComponent<VR_Controller>();
             if (vrCon.IsVRMode())
             {
-                //enabled = false;
                 inVRMode = true;
                 return;
             }
 
             dragScript = GetComponent<DragCard>();
+            canGroup = GetComponent<CanvasGroup>();
+            hand = GameObject.FindGameObjectWithTag(Constants.HandTag);
+            cam = GameObject.FindWithTag(Constants.CameraTag).GetComponent<Camera>();
+        }
 
+        private void InitMercenary()
+        {
             //Instantiate agent belonging to card
             Factory.AgentFactory af = GameObject.FindWithTag(Constants.FactoryTag).GetComponent<Factory.AgentFactory>();
             mercenary = af.CreateMercenary(cardData.type, Vector3.zero, cardData.Health, cardData.AttackRange);
             mercenaryRenderer = mercenary.GetComponentsInChildren<MeshRenderer>();
             mercenary.GetComponent<AgentController>().weapon.SetDamage(cardData.Damage);
             mercenary.SetActive(false);
-
-            canGroup = GetComponent<CanvasGroup>();
-            hand = GameObject.FindGameObjectWithTag(Constants.HandTag);
-
-            //GameObject vrconGO = GameObject.Find(Constants.VR_Tag);
-
-            //if (vrconGO == null)
-            //    cam = GameObject.FindWithTag(Constants.CameraTag).GetComponent<Camera>();
-            //else
-            //{
-            //    vrcon = vrconGO.GetComponent<VR_Controller>();
-            //    if (vrcon.IsVRMode() == false)
-                    cam = GameObject.FindWithTag(Constants.CameraTag).GetComponent<Camera>();
-            //}
         }
 
         public void OnPointerDown()
@@ -99,14 +92,8 @@ namespace Card
         {
             RaycastHit hit;
             Ray ray;
-            //if (vrcon.IsVRMode())
-            //{
-            //    ray = vrcon.GetPointerRay();
-            //}
-            //else
-            //{
-                ray = cam.ScreenPointToRay(currentMousePosition);
-            //}
+            ray = cam.ScreenPointToRay(currentMousePosition);
+            
             bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100, Physics.DefaultRaycastLayers);
             Debug.DrawRay(ray.origin, ray.direction * 1000);
 
@@ -154,6 +141,11 @@ namespace Card
                 return false;
 
             return true;
+        }
+
+        public GameObject GetMercenary()
+        {
+            return mercenary;
         }
     }
 }

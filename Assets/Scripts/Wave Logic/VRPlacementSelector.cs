@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class VRPlacementSelector : MonoBehaviour
 {
@@ -9,42 +10,56 @@ public class VRPlacementSelector : MonoBehaviour
 
     private Placement placement;
     private Renderer placementRenderer;
-    private VRPlacementSelector[] others;
-    private Placement[] otherPlacements;
+    private List<VRPlacementSelector> others;
+    private List<Placement> otherPlacements;
 
     void Start()
     {
         placement = GetComponent<Placement>();
         placementRenderer = GetComponent<Renderer>();
+
+        others = new List<VRPlacementSelector>();
+        otherPlacements = new List<Placement>();
+
+        FindPlacements();
         
-        GameObject[] placements = GameObject.FindGameObjectsWithTag(Constants.PlacementTag);
-        others = new VRPlacementSelector[placements.Length - 1];
-        otherPlacements = new Placement[others.Length];
-        int i = 0;
-        foreach (GameObject go in placements)
-        {
-            if (go == gameObject)
-                continue;
-
-            others[i] = go.GetComponent<VRPlacementSelector>();
-            otherPlacements[i] = go.GetComponent<Placement>();
-            i++;
-        }
-
         selected = false;
+        GameObject canvasGO = transform.GetChild(0).gameObject;
 
         VR_Controller vrCon = GameObject.Find(Constants.VR_Tag).GetComponent<VR_Controller>();
         if (vrCon.IsVRMode())
         {
             inVRMode = true;
+            Canvas can = canvasGO.GetComponent<Canvas>();
+            can.worldCamera = GameObject.Find(Constants.VR_PointerTag).GetComponent<Camera>();
             return;
         }
 
         inVRMode = false;
         enabled = false;
+        canvasGO.SetActive(false);
     }
 
-    public void OnPointerDown()
+    private void FindPlacements()
+    {
+        GameObject[] placementAreas = GameObject.FindGameObjectsWithTag(Constants.PlacementAreaTag);
+
+        for (int i = 0; i < placementAreas.Length; i++)
+        {
+            for (int j = 0; j < placementAreas[i].transform.childCount; j++)
+            {
+                GameObject area = placementAreas[i].transform.GetChild(j).gameObject;
+
+                if (area == gameObject)
+                    continue;
+
+                others.Add(area.GetComponent<VRPlacementSelector>());
+                otherPlacements.Add(area.GetComponent<Placement>());
+            }
+        }
+    }
+
+    public void OnClick()
     {
         if (inVRMode == false)
             return;
@@ -64,7 +79,7 @@ public class VRPlacementSelector : MonoBehaviour
 
     private void DeselectAlreadySelectedPlacement()
     {
-        for (int i = 0; i < others.Length; i++)
+        for (int i = 0; i < others.Count; i++)
         {
             if (otherPlacements[i].IsAlreadyOccupied())
                 continue;
@@ -72,5 +87,16 @@ public class VRPlacementSelector : MonoBehaviour
             others[i].selected = false;
             others[i].placementRenderer.material.color = Constants.VR_PlacementUnselectedColor;
         }
+    }
+
+    public bool IsSelected()
+    {
+        return selected;
+    }
+
+    public void PlaceMerc(GameObject mercenary)
+    {
+        selected = false;
+        placement.Occupy(mercenary);
     }
 }
