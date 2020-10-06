@@ -6,9 +6,10 @@ public class SpawnController : MonoBehaviour
     public Transform goal;
     public Wave[] waves;
 
+    [SerializeField]
     private int currentWave;
+    [SerializeField]
     private bool isWaveFinished;
-    private bool hasWavesLeft;
 
     private Action waveFinishedCallback;
     private bool callbackCalled;
@@ -18,7 +19,6 @@ public class SpawnController : MonoBehaviour
     {
         currentWave = -1;
         isWaveFinished = false;
-        hasWavesLeft = true;
         callbackCalled = false;
     }
 
@@ -36,9 +36,6 @@ public class SpawnController : MonoBehaviour
                 callbackCalled = true;
             }
         }
-
-        if (currentWave + 1 == waves.Length)
-            hasWavesLeft = false;
     }
 
     public void Init(Action callback)
@@ -48,7 +45,7 @@ public class SpawnController : MonoBehaviour
 
     public bool HasWavesLeft()
     {
-        return hasWavesLeft;
+        return currentWave + 1 != waves.Length;
     }
 
     public bool IsWaveFinished()
@@ -66,9 +63,9 @@ public class SpawnController : MonoBehaviour
 
     public void StartNextWave()
     {
+        isWaveFinished = false;
         currentWave += 1;
         waves[currentWave].Activate(gameObject, goal.gameObject);
-        isWaveFinished = false;
         callbackCalled = false;
     }
 

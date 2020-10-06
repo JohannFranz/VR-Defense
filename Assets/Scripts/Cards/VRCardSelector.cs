@@ -55,7 +55,7 @@ namespace Card
             for (int i = 0; i < hand.childCount; i++)
             {
                 GameObject child = hand.GetChild(i).gameObject;
-                if (child == gameObject)
+                if (child == null || child == gameObject || child.tag == Constants.PlaceholderTag)
                     continue;
 
                 VRCardSelector selector = child.GetComponent<VRCardSelector>();

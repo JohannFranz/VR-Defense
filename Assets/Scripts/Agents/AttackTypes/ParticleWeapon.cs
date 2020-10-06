@@ -4,17 +4,18 @@ public class ParticleWeapon : Weapon
 {
     public float attackDuration;
     public Transform firePosition;
+    public GameObject particleObject;
 
     private bool attackInProgress;
-    public GameObject particleObject;
     private ParticleShoot shoot;
-
+    private AudioSource weaponSound;
 
     void Start()
     {
         shoot = GetComponent<ParticleShoot>();
         timeTillAttack = 0.0f;
         particleObject.GetComponent<ParticleSystem>().Stop();
+        weaponSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -32,6 +33,7 @@ public class ParticleWeapon : Weapon
         timeTillAttack = attackDuration + attackDelay;
         Vector3 shootDir = (target.transform.position + Vector3.up) - firePosition.position;
         shootDir.Normalize();
+        //weaponSound.Play();
         shoot.Fire(shootDir, firePosition.position);
         particleObject.GetComponent<ParticleSystem>().Play();
     }

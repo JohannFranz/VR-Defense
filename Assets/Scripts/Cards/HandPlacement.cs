@@ -93,10 +93,8 @@ namespace Card
         public int GetAmountOfCards()
         {
             int amount = 0;
-            if (transform.childCount == 0)
-                return amount;
 
-            for (int i = 0; i < Constants.HandSize; i++)
+            for (int i = 0; i < transform.childCount; i++)
             {
                 if (transform.GetChild(i).tag == Constants.PlaceholderTag)
                     continue;

@@ -50,7 +50,7 @@ public class AgentSensor : MonoBehaviour
     public void SetViewRange(float range)
     {
         attackRange = range;
-        GetComponent<SphereCollider>().radius = range * 2;  // 2 times attack range
+        GetComponent<SphereCollider>().radius = range * 1.5f;  // 2 times attack range
     }
 
     public List<GameObject> GetAllies()

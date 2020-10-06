@@ -9,6 +9,7 @@ public class Placement : MonoBehaviour
     private Color unplacedColor;
     private Color placedColor;
 
+    [SerializeField]
     private bool isAlreadyOccupied;
 
     // Start is called before the first frame update
@@ -22,11 +23,11 @@ public class Placement : MonoBehaviour
         placementRenderer.material.color = unplacedColor;
     }
 
-    //void Update()
-    //{
-    //    if (placedMercenary == null || placedMercenary.activeSelf == false)
-    //        isAlreadyOccupied = false;
-    //}
+    void Update()
+    {
+        if (placedMercenary == null || placedMercenary.activeSelf == false)
+            isAlreadyOccupied = false;
+    }
 
     public bool IsAlreadyOccupied()
     {
@@ -38,4 +39,6 @@ public class Placement : MonoBehaviour
         placedMercenary = mercenary;
         isAlreadyOccupied = true;
     }
+
+
 }

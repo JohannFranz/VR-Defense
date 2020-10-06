@@ -44,9 +44,9 @@ public class CameraController : MonoBehaviour
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(currentPosition);
-                if (Physics.Raycast(ray.origin, ray.direction, out hit) == false)
+                if (Physics.Raycast(ray.origin, ray.direction, out hit, 100, Constants.GroundLayer) == false)
                     return;
-
+               
                 rotationPosition = hit.point;
             }
             
@@ -78,9 +78,9 @@ public class CameraController : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(currentPosition);
-        if (Physics.Raycast(ray.origin, ray.direction, out hit) == false)
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, 100, Constants.GroundLayer) == false)
             return;
-
+        
         Vector3 zoomDirection = zoomPressed * (hit.point - transform.position);
         zoomDirection.Normalize();
         transform.Translate(zoomDirection * Time.deltaTime * zoomVelocity, Space.World);

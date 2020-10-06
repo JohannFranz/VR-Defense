@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Western_01
   m_EditorClassIdentifier: 
   health: 200
-  amount: 1
+  amount: 6
   interval: 1.5
   attackRange: 8
   damage: 1

@@ -105,19 +105,25 @@ public class EndlessGameController : MonoBehaviour
 
     public void WaveFinishedCallback()
     {
-        if (HasGameEnded())
+        if (HasRoundEnded())
         {
-            SuccessfulEnd();
-        }
-        else if (HasRoundEnded())
-        {
-            PrepareNextWave();
+            if (HasGameEnded())
+            {
+                SuccessfulEnd();
+            }
+            else
+            {
+                PrepareNextWave();
+            }
         }
     }
 
     private bool HasGameEnded()
     {
-        foreach(SpawnController spawnCon in spawnCons)
+        if (HasRoundEnded() == false)
+            return false;
+
+        foreach (SpawnController spawnCon in spawnCons)
         {
             if (spawnCon.HasWavesLeft())
                 return false;

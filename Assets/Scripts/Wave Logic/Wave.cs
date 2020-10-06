@@ -46,7 +46,7 @@ public class Wave : MonoBehaviour
 
         if (state == WaveState.progressing)
         {
-            if (AreMinionsLeft())
+            if (AreAllMinionsDead())
             {
                 state = WaveState.finished;
             }
@@ -90,14 +90,13 @@ public class Wave : MonoBehaviour
         state = WaveState.spawning;
     }
 
-    private bool AreMinionsLeft()
+    private bool AreAllMinionsDead()
     {
         for (int i = 0; i < minions.Length; i++)
         {
             if (minions[i].activeSelf)
                 return false;
         }
-
         return true;
     }
 

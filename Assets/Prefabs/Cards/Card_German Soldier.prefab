@@ -270,9 +270,10 @@ GameObject:
   - component: {fileID: 918141239849184157}
   - component: {fileID: 4439416512574168815}
   - component: {fileID: 3529102675982150021}
+  - component: {fileID: 7244549202949509684}
   m_Layer: 5
   m_Name: Card_German Soldier
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -528,6 +529,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inVRMode: 0
   selected: 0
+--- !u!114 &7244549202949509684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512173258369276298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994f4ebc42a005448a8ae30c22bee8e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2218950943005071839
 GameObject:
   m_ObjectHideFlags: 0

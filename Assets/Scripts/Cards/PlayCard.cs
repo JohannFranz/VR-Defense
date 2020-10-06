@@ -94,7 +94,7 @@ namespace Card
             Ray ray;
             ray = cam.ScreenPointToRay(currentMousePosition);
             
-            bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100, Physics.DefaultRaycastLayers);
+            bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100, Constants.GroundLayer);
             Debug.DrawRay(ray.origin, ray.direction * 1000);
 
             return hit.point;
@@ -128,7 +128,7 @@ namespace Card
             //{
                 ray = cam.ScreenPointToRay(currentMousePosition);
             //}
-            bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100, Physics.DefaultRaycastLayers);
+            bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100, Constants.GroundLayer);
 
             if (wasHit == false)
                 return false;

@@ -43,6 +43,9 @@ public static class Constants
     public const string HealthController = "HealthController";
     public const string DeckManager = "DeckManager";
 
+    public static readonly LayerMask GroundLayer = 1 << 8;
+    public static readonly LayerMask UILayer = 1 << 9;
+
 
     public const string TriggerStart = "Start";
     public const string Main_Menu = "MainMenu";
@@ -50,16 +53,18 @@ public static class Constants
     public const string World_Western = "World_Western";
     public const string World_Vineyard = "World_Vineyard";
     public const string World_Medieval = "World_Medieval";
-    public const string World_Ice = "World_Ice";
+    public const string World_Ice = "World_Ice_2";
     public const string World_Skull_Island = "World_Skull_Island";
 
     public static readonly Vector3 RotationAroundYAxis = new Vector3(0, 1, 0);
     public static readonly Vector3 Origin = Vector3.zero;
     public static readonly Vector3 NullVector3 = new Vector3(-9999, -9999, -9999);
-    public static readonly Vector3 VR_CanvasScale = new Vector3(0.01f, 0.01f, 0.01f);
-    public static readonly Vector3 VR_CanvasMainMenuPosition = new Vector3(0, 2, 2);
-    public static readonly Vector3 VR_CanvasGamePosition = new Vector3(0, 4, 10);
-    public static readonly Vector3 VR_CanvasGameRotation = new Vector3(0, 0, 0);
+    public static readonly Vector3 VR_CanvasScale = new Vector3(0.003f, 0.003f, 0.003f);
+    public static readonly Vector3 VR_CanvasMainMenuPosition = new Vector3(0, 2, 3);
+    public static readonly Vector3 VR_CanvasGamePosition = new Vector3(-0.055f, 0.2f, 1.8f);
+    public static readonly Vector3 VR_CanvasGameRotation = new Vector3(66.29f, 0, 0);
+    public static readonly int VR_CanvasWidth = 960;
+    public static readonly int VR_CanvasHeight = 250;
     public static readonly float VR_PointerLength = 100.0f;
 
     public static readonly Color VR_PlacementUnselectedColor = new Color32(45, 66, 166, 255);

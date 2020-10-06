@@ -56,10 +56,14 @@ public class AttackState : State
 
     private bool IsFacingTarget(GameObject agent)
     {
+        GameObject shootTarget = agent.GetComponent<AgentController>().shootTarget;
+        if (shootTarget == null || shootTarget.activeSelf == false)
+            return false;
+
         Vector3 lookDir = agent.transform.forward;
         lookDir.Normalize();
 
-        Vector3 targetDir = agent.GetComponent<AgentController>().shootTarget.transform.position - agent.transform.position;
+        Vector3 targetDir = shootTarget.transform.position - agent.transform.position;
         float distance = targetDir.magnitude;
         targetDir.Normalize();
         float dot = Vector3.Dot(lookDir, targetDir);

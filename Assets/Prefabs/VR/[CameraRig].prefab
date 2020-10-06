@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6063323638850183166}
   - component: {fileID: 6160229695068942224}
   - component: {fileID: 6194506919603421066}
+  - component: {fileID: 5804140783979893496}
+  - component: {fileID: 6001060056130508703}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -96,6 +98,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30a2316e98e1dc4b97e432a1301f85c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5804140783979893496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080352972960793530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad1e469d4e3e04489f9a36419f1a4f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6001060056130508703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080352972960793530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _head: {fileID: 0}
+  _ears: {fileID: 0}
+  wireframe: 0
 --- !u!1 &6080507459535738043
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6080507459879171916}
   - component: {fileID: 6194506907034729162}
+  - component: {fileID: 9194851641844603061}
   m_Layer: 0
   m_Name: Controller (left)
   m_TagString: Untagged
@@ -514,6 +544,22 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   broadcastDeviceChanges: 1
+--- !u!114 &9194851641844603061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080507459878982416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebbe059fe7f37e840ab73045c977fbf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointer: {fileID: 0}
+  teleportAction:
+    actionPath: 
+    needsReinit: 0
 --- !u!1 &6080507460488702259
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +755,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82bae2a1ba4ddfa4898b290f764450c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultLength: 3
   dot: {fileID: 6080507459535738043}
-  inputModule: {fileID: 0}

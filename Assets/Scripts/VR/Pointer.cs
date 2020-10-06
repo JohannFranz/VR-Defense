@@ -15,8 +15,17 @@ public class Pointer : MonoBehaviour
 
     private Ray pointerRay;
 
+    [SerializeField]
+    private bool inVRMode;
+
     private void Awake()
     {
+        VR_Controller vrCon = GameObject.Find(Constants.VR_Tag).GetComponent<VR_Controller>();
+        if (vrCon.IsVRMode())
+            inVRMode = true;
+        else
+            inVRMode = false;
+
         Camera = GetComponent<Camera>();
         Camera.enabled = false;
 
@@ -33,6 +42,9 @@ public class Pointer : MonoBehaviour
 
     private void Update()
     {
+        if (inVRMode == false)
+            return;
+
         UpdateLine();
     }
 
@@ -43,7 +55,7 @@ public class Pointer : MonoBehaviour
         RaycastHit hit;
         pointerRay.origin = transform.position;
         pointerRay.direction = transform.forward;
-        Physics.Raycast(pointerRay, out hit, Constants.VR_PointerLength);
+        Physics.Raycast(pointerRay, out hit, Constants.VR_PointerLength, Constants.UILayer);
 
         // If nothing is hit, set do default length
         float colliderDistance = hit.distance == 0 ? Constants.VR_PointerLength : hit.distance;

@@ -5,10 +5,10 @@ public class ProjectileWeapon : Weapon
 {
     public float projectileVelocity;
     public Transform firePosition;
+    public GameObject projectile;
 
     private bool attackInProgress;
-    public GameObject projectile;
-    
+    private AudioSource weaponSound;
 
     void Start()
     {
@@ -17,6 +17,7 @@ public class ProjectileWeapon : Weapon
         timeTillAttack = 0.0f;
         float projectileRange = attackRange * 2;
         projectile.GetComponent<Shoot>().InitProjectile(projectileVelocity, projectileRange, ResetProjectile);
+        weaponSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -40,6 +41,7 @@ public class ProjectileWeapon : Weapon
         timeTillAttack = attackDelay;
         Vector3 shootDir = (target.transform.position + Vector3.up) - firePosition.position;
         shootDir.Normalize();
+        weaponSound.Play();
         projectile.GetComponent<Shoot>().Fire(shootDir, firePosition.position);
         projectile.SetActive(true);
     }

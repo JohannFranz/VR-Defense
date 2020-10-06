@@ -82,7 +82,7 @@ public class PlaceAgent : MonoBehaviour
         {
             ray = cam.ScreenPointToRay(currentPosition);
         }
-        bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hitAgent, 100, Physics.DefaultRaycastLayers);
+        bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hitAgent, 100, Constants.GroundLayer);
         if (wasHit == false)
             return false;
 
@@ -111,7 +111,7 @@ public class PlaceAgent : MonoBehaviour
         {
             ray = cam.ScreenPointToRay(currentPosition);
         }
-        bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 1000/*, Physics.DefaultRaycastLayers*/);
+        bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100, Constants.GroundLayer);
 
 
         if (wasHit)
@@ -135,7 +135,7 @@ public class PlaceAgent : MonoBehaviour
         {
             ray = cam.ScreenPointToRay(currentPosition);
         }
-        bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100/*, Physics.DefaultRaycastLayers*/);
+        bool wasHit = Physics.Raycast(ray.origin, ray.direction, out hit, 100, Constants.GroundLayer);
         //Debug.DrawRay(ray.origin, ray.direction * (hit.point - ray.origin).magnitude);
 
         if (wasHit && hit.transform.CompareTag(Constants.PlacementTag))
