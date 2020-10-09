@@ -1,0 +1,12 @@
+\chapter{Zusammenfassung und Ausblick}
+Diese Arbeit hat mit You Only Look Once einen Deep Learning Algorithmus für die Objekterkennung vorgestellt. 
+Die Leistungsfähigkeit von YOLO wird auf Basis eines binären Klassifikators evaluiert. 
+Dazu werden relative Kenngrößen in Form der Genauigkeit und Trefferquote bestimmt und in einem Graph dargestellt.
+Die Fläche unterhalb des Graphen ist als Average Precision definiert und wird in einem Mittelwert über alle Klassen in der Mean Average Precision zusammengefasst.\newline
+Konträr zu alternativen Verfahren interpretiert YOLO das Bild als ein Regressions- statt einem Klassifikationsproblem.
+YOLO verwendet eine einheitliche Netzarchitektur, die eine Parallelisierung der Prozesse erlaubt.
+Daraus ergibt sich eine Verarbeitungsgeschwindigkeit von mehr als 30 Bildern pro Sekunde. 
+Das Bild wird in Zellen aufgeteilt und jede Zelle bestimmt eine feste Anzahl von Bounding Boxes. \newline
+Im Vergleich mit alternativen Echtzeitverfahren zeigt sich, dass YOLO eine mehr als doppelt so hohe mAP erreicht. 
+Eine schlanke Version von YOLO, genannt Fast YOLO, kann 50\% mehr Bilder pro Sekunde verarbeiten als das schnellste alternative Verfahren.
+Bei der Fehleranalyse zeigt sich, dass YOLO bei der Lokalisierung schlechter als die Konkurrenz abschneidet.

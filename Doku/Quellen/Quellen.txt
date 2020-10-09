@@ -1,0 +1,8 @@
+httpsjaai.dekuenstliche-neuronale-netze-aufbau-funktion-291    -  neuralnetworks.png
+
+https://medium.com/@yanfengliux/the-confusing-metrics-of-ap-and-map-for-object-detection-3113ba0386ef     -   False_Positives_....
+
+
+Introduction to Information Retrieval (Christopher D. Manning et al)   -  Precision_Recall_Curve
+
+

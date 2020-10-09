@@ -1,0 +1,31 @@
+\chapter{Einleitung und Problemstellung}
+
+Das Maschinelle Sehen besch{\"a}ftigt sich mit der computergest{\"u}tzten Analyse einer Szene und der darin enthaltenen Objekte. 
+Bis zum heutigen Zeitpunkt gilt diese Aufgabenstellung als die schwierigste aller visuellen Aufgaben, die einem Computer zugeteilt werden kann \cite[S. 577]{Szeliski2010}.
+Die Gr{\"u}nde hierf{\"u}r liegen einerseits in einer riesigen Menge unterschiedlicher Objektkategorien, andererseits in einer F{\"u}lle von Vielf{\"a}ltigkeiten innerhalb jeder Kategorie \cite[S. 577]{Szeliski2010}. 
+So existieren zum Beispiel Hunde in zahlreichen Rassen, Gr{\"o}\ss{en} und Altersgruppen. 
+\newline
+Die Objekterkennung ist ein Teilfeld des Maschinellen Sehens. 
+Ziel ist die Klassifizierung und Lokalisierung von Objekten in Bildern \cite[S. 577]{Szeliski2010}. 
+Dazu wird ein erkanntes Objekt mit einer Bounding Box umh{\"u}llt und beschriftet. 
+Damit einzelne Verfahren verglichen werden k{\"o}nnen, werden Bilddatens{\"a}tze mit Annotationen zur Verf{\"u}gung gestellt. In j{\"a}hrlichen Challenges messen sich die besten Algorithmen \cite{Everingham2010}\cite{Russakovsky2015}. 
+F{\"u}r einen aussagekr{\"a}ftigen Vergleich ben{\"o}tigt es definierter Qualit{\"a}ts- und Messkriterien. 
+F{\"u}r jedes erkannte Objekt wird eine Klassifizierung und Lokalisierung vorgenommen und anschlie\ss{end} jeweils ein Zuversichtswert angegeben.
+Dieser Wert belegt wie sicher sich das Verfahren ist, dass das Objekt der entsprechenden Klasse angeh{\"o}rt bzw. von einer passenden Box umschlossen ist. 
+Mit der Average-Precision (AP) wurde f{\"u}r die VOC Challenge im Jahr 2007 ein Evaluierungsverfahren eingef{\"u}hrt, das bereits in der Information Retrieval Verwendung findet \cite{Everingham2010}\cite[S. 160]{Manning2008}. 
+F{\"u}r jede Klasse wird die Average Precision bestimmt und schlie\ss{lich} in einem Mittelwert  zusammengefasst. \newline
+Seit 2012 hat die reine Klassifizierung der Objekte mit der Verwendung von Deep Learning Verfahren, wie dem AlexNet, wesentliche Fortschritte gemacht \cite{Krizhevsky2012}\cite{He2015}\cite{Szegedy2014}. 
+Dies hat zu einem Umdenken in der Forschung gef{\"u}hrt. 
+Neue Objekterkennungsverfahren partitionieren das Bild in Kachel und schicken diese anschlie\ss{end} durch ein Klassifizierungsnetz \cite{Sermanet2014}. 
+Alternativ dazu bestimmt R-CNN in einem Vorverarbeitungsschritt Regionen, in denen Objekte zu erwarten sind. 
+Diese Regionen werden anschlie\ss{end} klassifiziert \cite{Girshick2013}. \newline
+Probleme dieser Verfahren sind sowohl die Performanz, es kann mehrere Sekunden dauern bis ein Bild verarbeitet wurde. 
+Andererseits ben{\"o}tigen genannte Verfahren mehrere Arbeitsschritte pro Bild \cite{Redmon2015}. 
+Zu diesem Zweck wurde You Only Look Once (YOLO) entwickelt. 
+YOLO interpretiert die Objekterkennung \glqq als ein einzelnes Regressionsproblem, direkt aus Bildpixel in Bounding Box-Koordinaten und  Klassenwahrscheinlichkeiten\grqq{} \cite{Redmon2015}. 
+Das erm{\"o}glicht Training und Einsatz eines neuronalen Netzes mit einer einheitlichen Architektur. 
+YOLO ist so in der Lage Bilder in Echtzeit\footnote{Mindestens 30 Bilder pro Sekunde} zu analysieren.
+Der Trainingsprozess verallgemeinert die Objektinformationen soweit, dass sogar Kunst besser erkannt wird als bei alternativen Verfahren.
+Im Gegenzug hat YOLO verst{\"a}rkt Probleme mit kleinen Objekten \cite{Redmon2015}.
+Inzwischen wurde bereits die dritte Version von YOLO ver{\"o}ffentlicht \cite{Redmon2018}. 
+In dieser Arbeit wird die initiale Version untersucht und vorgestellt.

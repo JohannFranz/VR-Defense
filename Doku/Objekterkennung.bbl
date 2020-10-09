@@ -1,0 +1,12 @@
+\begin{thebibliography}{Gla89}
+
+\bibitem[Gla89]{Glassner}
+{\sc Glassner, Andrew~S.}\ (\btxeditorlong{}): {\em An Introduction to Ray
+  Tracing}.
+\newblock Academic Press Ltd., GBR, 1989.
+
+\bibitem[Suf07]{Suffern}
+{\sc Suffern, Kevin}: {\em Ray Tracing from the Ground Up}.
+\newblock A. K. Peters, Ltd., USA, 2007.
+
+\end{thebibliography}
